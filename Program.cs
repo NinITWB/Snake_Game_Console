@@ -1,39 +1,33 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace SnakeGame
 {
     internal class Program
     {
-        
         #region parameter
+
         public Random rand = new Random();
         public ConsoleKeyInfo keyPess = new ConsoleKeyInfo();
 
-        int score, headX, headY, fruitX, fruitY, nTail;
-        int[] tailX = new int[100];
-        int[] tailY = new int[100];
+        private int score, headX, headY, fruitX, fruitY, nTail;
+        private int[] tailX = new int[100];
+        private int[] tailY = new int[100];
 
-        const int height = 20;
-        const int width = 60;
-        const int panel = 10;
-        int timeEvolution = 0;
-        string foodType;
-        int mark = 0;
+        private const int height = 20;
+        private const int width = 60;
+        private const int panel = 10;
+        private int timeEvolution = 0;
+        private string foodType;
 
-        bool gameOver, reset, isPrinted;
-        bool isPaused = false;
+        private bool gameOver, reset, isPrinted;
 
-        string dir, pre_dir;
+        private string dir, pre_dir;
 
-        #endregion
+        #endregion parameter
+
         //hien thi man hinh khi bat dau game
-        void ShowBanner()
+        private void ShowBanner()
         {
             Console.SetWindowSize(width, height + panel);
             Console.ForegroundColor = ConsoleColor.Cyan;
@@ -49,49 +43,49 @@ namespace SnakeGame
                 Environment.Exit(0);
             }
         }
+
         //nhung cai dat ban dau
-        void SetUp()
+        private void SetUp()
         {
             dir = "RIGHT"; pre_dir = ""; // buoc di dau tien qua phai
             score = 0; nTail = 3;
             gameOver = reset = isPrinted = false;
-            
 
-            headX = 20; //khong vuot qua width 
+            headX = 20; //khong vuot qua width
             headY = 10; //khong duoc vuot qua height
             timeEvolution = rand.Next(2, 4);
 
             RandomMoi();
-
         }
+
         //random diem moi xuat hien
-        void RandomMoi()
+        private void RandomMoi()
         {
             if (timeEvolution != 0) foodType = "foodBase";
             else foodType = "deluxeFood";
             fruitX = rand.Next(1, width - 1);
             fruitY = rand.Next(1, height - 1);
         }
+
         //cap nhat man hinh
-        void Update()
+        private void Update()
         {
             while (!gameOver)
             {
                 CheckInput();
                 Logic();
                 Render();
+                Console.WriteLine("Press 'P' if u wanna pause game");
                 if (reset) break;
-                Console.WriteLine("mark: " + mark + "Direction: " + dir);
-               
 
-                //dung man hinh sau 
+                //dung man hinh sau
                 Thread.Sleep(60);
-              
             }
             if (gameOver) Lose();
         }
+
         //dieu khien phim
-        void CheckInput()
+        private void CheckInput()
         {
             while (Console.KeyAvailable)
             {
@@ -102,14 +96,10 @@ namespace SnakeGame
                 {
                     case ConsoleKey.Q: Environment.Exit(0); break;
                     case ConsoleKey.P:
-                        if (mark == 0) mark = 1;
-                        if (mark == 1)
-                        {
-                            mark = 0;
-                            continue;
-                        }
                         dir = "PAUSE";
+                        Console.WriteLine("Paused");
                         break;
+
                     case ConsoleKey.LeftArrow:
                         if (pre_dir == "RIGHT")
                         {
@@ -118,8 +108,9 @@ namespace SnakeGame
                             dir = "LEFT";
                         }
                         else
-                        dir = "LEFT"; 
+                            dir = "LEFT";
                         break;
+
                     case ConsoleKey.RightArrow:
                         if (pre_dir == "LEFT")
                         {
@@ -127,12 +118,14 @@ namespace SnakeGame
                             headX++;
                             dir = "RIGHT";
                         }
-                        else dir = "RIGHT"; 
+                        else dir = "RIGHT";
                         break;
+
                     case ConsoleKey.UpArrow:
                         if (dir == "DOWN") continue;
                         dir = "UP";
                         break;
+
                     case ConsoleKey.DownArrow:
                         if (dir == "UP") continue;
                         dir = "DOWN";
@@ -140,8 +133,9 @@ namespace SnakeGame
                 }
             }
         }
+
         //kiem tra logic
-        void Logic()
+        private void Logic()
         {
             //1 2 3 4 5
             //x 1 2 3 4 5
@@ -166,38 +160,19 @@ namespace SnakeGame
                 case "UP": headY--; break;
                 case "DOWN": headY++; break;
                 case "PAUSE":
-                {
-                        /*while (true)
+                    {
+                        while (true)
                         {
-                            Console.Clear();
-                            Console.WriteLine("PAUSE");
-                            Console.WriteLine("press E to Quit");
-                            Console.WriteLine("press P to Pause");
-                            Console.WriteLine("press R to Reset");
-
-                            
-                            if (keyPess.Key == ConsoleKey.Q)
+                            keyPess = Console.ReadKey(true);
+                            if (keyPess.Key == ConsoleKey.P)
                             {
-                                Environment.Exit(0);
-                            }
-                            if (keyPess.Key == ConsoleKey.R)
-                            {
-                                reset = true;
                                 break;
                             }
-                            
-                        }*/
-                        if (keyPess.Key == ConsoleKey.P && mark == 1)
-                        {
                             return;
                         }
-                        if (mark == 0)
-                        {
-                            dir = pre_dir; 
-                        }
+                        dir = pre_dir;
                         break;
-                            
-                }
+                    }
             }
             //kiem tra cham tuong
             if (headX <= 0 || headX >= width - 1 ||
@@ -213,7 +188,6 @@ namespace SnakeGame
                     score += 10;
                     timeEvolution--;
                 }
-
                 else if (foodType == "deluxeFood")
                 {
                     score += 30;
@@ -234,8 +208,9 @@ namespace SnakeGame
                 }
             }
         }
+
         //hien thi doi tuong ra man hinh
-        void Render()
+        private void Render()
         {
             Console.SetCursorPosition(0, 0);
             for (int i = 0; i < height; i++)
@@ -245,7 +220,6 @@ namespace SnakeGame
                     if (i == 0 || i == height - 1) // vien tren va duoi
                     {
                         Console.Write("*");
-
                     }
                     else if (j == 0 || j == width - 1)
                     {
@@ -258,7 +232,7 @@ namespace SnakeGame
                             Console.ForegroundColor = ConsoleColor.Yellow;
                             Console.Write("$");
                             Console.ForegroundColor = ConsoleColor.Cyan;
-                        }    
+                        }
                         else if (foodType == "deluxeFood")
                         {
                             Console.ForegroundColor = ConsoleColor.DarkMagenta;
@@ -292,8 +266,9 @@ namespace SnakeGame
             }
             Console.WriteLine("Diem so: " + score);
         }
+
         //xu ly khi thua
-        void Lose()
+        private void Lose()
         {
             Console.WriteLine("LOSE");
             Console.WriteLine("press Q to Quit");
@@ -314,7 +289,7 @@ namespace SnakeGame
             }
         }
 
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Program program = new Program();
             program.ShowBanner();
@@ -324,10 +299,8 @@ namespace SnakeGame
                 program.Update();
                 Console.Clear();// xoa man hinh hien thi
             }
-            
-             
+
             //Console.ReadKey();
         }
     }
-    
 }
