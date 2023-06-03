@@ -1,0 +1,8 @@
+E:\Nin-IT\C#-Project\_DataStructure_Algorithm\SnakeGame\bin\Debug\SnakeGame.exe.config
+E:\Nin-IT\C#-Project\_DataStructure_Algorithm\SnakeGame\bin\Debug\SnakeGame.exe
+E:\Nin-IT\C#-Project\_DataStructure_Algorithm\SnakeGame\bin\Debug\SnakeGame.pdb
+E:\Nin-IT\C#-Project\_DataStructure_Algorithm\SnakeGame\obj\Debug\SnakeGame.csproj.AssemblyReference.cache
+E:\Nin-IT\C#-Project\_DataStructure_Algorithm\SnakeGame\obj\Debug\SnakeGame.csproj.SuggestedBindingRedirects.cache
+E:\Nin-IT\C#-Project\_DataStructure_Algorithm\SnakeGame\obj\Debug\SnakeGame.csproj.CoreCompileInputs.cache
+E:\Nin-IT\C#-Project\_DataStructure_Algorithm\SnakeGame\obj\Debug\SnakeGame.exe
+E:\Nin-IT\C#-Project\_DataStructure_Algorithm\SnakeGame\obj\Debug\SnakeGame.pdb
